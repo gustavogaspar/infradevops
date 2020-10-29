@@ -1,0 +1,12 @@
+-------------- Script de deployment -----------------
+
+
+
+mkdir -p $HOME/.kube
+oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.sa-saopaulo-1.aaaaaaaaae2gmzjxgu3wizjsge2wknjumftgmmldhfsdiobygcrdom3ege3t --file $HOME/.kube/config --region sa-saopaulo-1 --token-version 2.0.0 
+export KUBECONFIG=$HOME/.kube/config
+kubectl apply -f app.yaml
+sleep 30
+kubectl rollout restart deployment app01
+kubectl get deployments
+kubectl get svc
